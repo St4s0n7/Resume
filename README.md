@@ -6,7 +6,7 @@
 Менеджер-аналитик маркетплейсов. Разрабатываю ИИ-агентов и нейро-сотрудников через **вайб-кодинг**. Специализируюсь на Python, компьютерном зрении и LLM. Призёр хакатонов.
 
 ## Стек
-`Python` `OpenCV` `U-net` `LangChain` `RAG` `FAISS` `FastAPI` `Docker` `Colab` `Replit` `Google AI Studio` `Cursor` `SQL` `Excel` `Wildberries / Ozon`
+`Python` `OpenCV` `U-net` `LangChain` `RAG` `FAISS` `FastAPI` `Docker` `Colab` `Replit` `Google AI Studio` `Cursor` `SQL` `Excel` `Ozon / Wildberries / Яндекс Маркет`
 
 ## Хакатоны и проекты
 - 🥈 **2 место** — Нейро-сказочник (генерация сказок по финансовой грамотности нейросетями)
