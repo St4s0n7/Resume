@@ -10,13 +10,10 @@ Python · YOLO · OpenCV · LangChain · RAG · FAISS · FastAPI · Docker · Gi
 ## 🏆 Хакатоны
 - 🥈 **2 место** — Нейро-сказочник
 - 🏅 **4 место** — Распознавание с дронов (CV)
-- 🏅 **4 место** — 3D-принтер (автоматизация)
+- 🏅 **4 место** — [3D Print Assistant](https://github.com/St4s0n7/3d_print_assistant) — RAG-помощник по 3D-печати (FAISS + LangChain)
 
 ## 🎓 Образование
 **УИИ (Университет искусственного интеллекта)** — AI / ML Engineering
-
-## 📂 Проекты
-- [3D Print Assistant](https://github.com/St4s0n7/3d_print_assistant) — RAG-помощник по 3D-печати (FAISS + LangChain)
 
 ## 🎯 Сейчас
 Участвую в хакатоне **Ozon Tech — Робозон** (имитационное моделирование сортировочного центра)
