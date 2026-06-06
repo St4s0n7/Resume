@@ -7,9 +7,9 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         @keyframes flicker {
-            0% { opacity: 0.97; }
+            0% { opacity: 0.96; }
             50% { opacity: 1; }
-            100% { opacity: 0.98; }
+            100% { opacity: 0.97; }
         }
         @keyframes scanline {
             0% { transform: translateY(-100%); }
@@ -17,7 +17,15 @@
         }
         @keyframes glow {
             0%, 100% { text-shadow: 0 0 4px #00ff41, 0 0 8px #00ff4180; }
-            50% { text-shadow: 0 0 8px #00ff41, 0 0 16px #00ff41, 0 0 24px #00ff4180; }
+            50% { text-shadow: 0 0 8px #00ff41, 0 0 16px #00ff41; }
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
         }
         body {
             font-family: 'Aptos', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -37,8 +45,8 @@
                 0deg,
                 transparent,
                 transparent 2px,
-                rgba(0, 255, 65, 0.03) 2px,
-                rgba(0, 255, 65, 0.03) 4px
+                rgba(0, 255, 65, 0.025) 2px,
+                rgba(0, 255, 65, 0.025) 4px
             );
             pointer-events: none;
             z-index: 1000;
@@ -51,98 +59,157 @@
             height: 100%;
             background: linear-gradient(to bottom, transparent, #00ff41, transparent);
             animation: scanline 4s linear infinite;
-            opacity: 0.15;
+            opacity: 0.1;
             pointer-events: none;
             z-index: 999;
         }
         .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 30px 20px;
             position: relative;
             z-index: 1;
         }
-        .header {
-            text-align: center;
-            padding: 40px 0;
-            border-bottom: 2px solid #00ff41;
-            margin-bottom: 30px;
-        }
-        .header h1 {
-            font-size: 2.5em;
-            color: #00ff41;
+
+        /* Hello, friend */
+        .hello-friend {
+            color: #008a22;
+            font-size: 0.85em;
             margin-bottom: 4px;
-            animation: glow 2s infinite;
+            font-style: italic;
         }
-        .header .subtitle {
-            font-size: 1em;
-            color: #00cc33;
+        .hello-friend span {
+            color: #00ff41;
+        }
+
+        /* ASCII logo */
+        .ascii-logo {
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+            font-size: 0.55em;
+            line-height: 1.1;
+            white-space: pre;
+            text-align: center;
+            margin-bottom: 16px;
             opacity: 0.8;
         }
-        .header .nick {
-            font-size: 0.8em;
+
+        /* Terminal line */
+        .terminal-line {
             color: #008a22;
+            font-size: 0.8em;
+            margin-bottom: 20px;
+            padding: 8px 12px;
+            border-left: 2px solid #00ff4133;
+            background: rgba(0, 255, 65, 0.03);
+        }
+        .terminal-line .prompt {
+            color: #00ff41;
+        }
+        .terminal-line .cursor {
+            animation: blink 1s step-end infinite;
+            color: #00ff41;
+        }
+
+        .header {
+            text-align: center;
+            padding: 20px 0 30px;
+            border-bottom: 1px solid #00ff4133;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            font-size: 2.2em;
+            color: #00ff41;
+            margin-bottom: 2px;
+            animation: glow 3s infinite;
+        }
+        .header .subtitle {
+            font-size: 0.95em;
+            color: #00cc33;
+            opacity: 0.85;
+        }
+        .header .nick {
+            font-size: 0.75em;
+            color: #006b1a;
             margin-top: 4px;
         }
-        .section {
-            margin: 20px 0;
-            padding: 20px;
-            border: 1px solid #00ff4166;
-            border-radius: 4px;
+
+        /* User info badge */
+        .user-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 16px 0 20px;
+            padding: 10px;
+            border: 1px solid #00ff4120;
             background: rgba(0, 255, 65, 0.02);
+            font-size: 0.75em;
+            color: #008a22;
+        }
+        .user-info .key { color: #006b1a; }
+        .user-info .val { color: #00ff41; }
+
+        .section {
+            margin: 16px 0;
+            padding: 16px 20px;
+            border: 1px solid #00ff4133;
+            background: rgba(0, 255, 65, 0.015);
         }
         .section:hover {
-            border-color: #00ff41;
-            background: rgba(0, 255, 65, 0.04);
+            border-color: #00ff4166;
+            background: rgba(0, 255, 65, 0.03);
         }
         .section h2 {
             color: #00ff41;
-            font-size: 1.2em;
-            margin-bottom: 12px;
-            padding-bottom: 6px;
-            border-bottom: 1px solid #00ff4133;
+            font-size: 1em;
+            margin-bottom: 10px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid #00ff4120;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
         .section h2::before {
-            content: '> ';
-            color: #008a22;
+            content: '# ';
+            color: #006b1a;
         }
+
         .skills-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
         }
         .skill-tag {
-            background: rgba(0, 255, 65, 0.08);
-            color: #00ff41;
-            padding: 4px 14px;
-            border: 1px solid #00ff4133;
+            background: rgba(0, 255, 65, 0.06);
+            color: #00cc33;
+            padding: 3px 12px;
+            border: 1px solid #00ff4120;
             font-family: 'Aptos', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 0.85em;
+            font-size: 0.8em;
         }
         .skill-tag:hover {
-            background: rgba(0, 255, 65, 0.15);
+            background: rgba(0, 255, 65, 0.12);
             border-color: #00ff41;
+            color: #00ff41;
         }
+
         .achievement {
-            border: 1px solid #00ff4133;
-            border-radius: 4px;
-            padding: 14px;
-            margin-bottom: 10px;
-            background: rgba(0, 255, 65, 0.03);
+            border: 1px solid #00ff4120;
+            padding: 12px 14px;
+            margin-bottom: 8px;
+            background: rgba(0, 255, 65, 0.02);
         }
         .achievement:hover {
-            border-color: #00ff41;
+            border-color: #00ff4166;
         }
         .achievement .place {
-            font-size: 1.3em;
+            font-size: 1.1em;
             font-weight: bold;
             color: #00ff41;
         }
         .achievement .title {
-            font-size: 1em;
-            margin: 4px 0;
+            font-size: 0.95em;
+            margin: 3px 0;
             color: #00cc33;
         }
         .achievement .title a {
@@ -155,16 +222,18 @@
         }
         .achievement .desc {
             color: #008a22;
-            font-size: 0.85em;
+            font-size: 0.8em;
         }
+
         .info-row {
             display: flex;
             justify-content: space-between;
-            padding: 6px 0;
-            border-bottom: 1px solid #00ff411a;
+            padding: 5px 0;
+            border-bottom: 1px solid #00ff4110;
+            font-size: 0.9em;
         }
         .info-row:last-child { border-bottom: none; }
-        .info-row .label { color: #008a22; }
+        .info-row .label { color: #006b1a; }
         .info-row .value { color: #00cc33; }
         .info-row .value a {
             color: #00cc33;
@@ -174,34 +243,78 @@
             color: #00ff41;
             text-decoration: underline;
         }
+
+        .quote {
+            text-align: center;
+            padding: 20px;
+            color: #008a22;
+            font-style: italic;
+            font-size: 0.8em;
+            border: 1px solid #00ff4120;
+            margin: 16px 0;
+        }
+        .quote .author {
+            color: #006b1a;
+            font-style: normal;
+            font-size: 0.85em;
+            margin-top: 4px;
+        }
+
         .footer {
             text-align: center;
-            padding: 30px 0;
-            color: #008a22;
-            font-size: 0.85em;
-            border-top: 1px solid #00ff4133;
-            margin-top: 30px;
+            padding: 20px 0;
+            color: #006b1a;
+            font-size: 0.75em;
+            border-top: 1px solid #00ff4120;
+            margin-top: 20px;
         }
         .footer a {
-            color: #008a22;
+            color: #006b1a;
             text-decoration: none;
         }
         .footer a:hover {
             color: #00ff41;
         }
+
         @media (max-width: 600px) {
-            .header h1 { font-size: 1.6em; }
-            .container { padding: 20px 12px; }
-            .info-row { flex-direction: column; gap: 2px; }
+            .header h1 { font-size: 1.5em; }
+            .container { padding: 16px 10px; }
+            .ascii-logo { font-size: 0.4em; }
+            .info-row { flex-direction: column; gap: 1px; }
+            .user-info { gap: 10px; font-size: 0.65em; }
         }
     </style>
 </head>
 <body>
     <div class="container">
+
+        <!-- Mr. Robot style -->
+        <div class="hello-friend">Hello, <span>friend</span>.</div>
+
+        <div class="ascii-logo">
+   _______      ___      .___  ___.  _______ 
+  /  _____|    /   \     |   \/   | |   ____|
+ |  |  __     /  ^  \    |  \  /  | |  |__   
+ |  | |_ |   /  /_\  \   |  |\/|  | |   __|  
+ |  |__| |  /  _____  \  |  |  |  | |  |____ 
+  \______| /__/     \__\ |__|  |__| |_______|
+        </div>
+
+        <div class="terminal-line">
+            <span class="prompt">st4s0n7@resume:~$</span> cat about.md
+        </div>
+
         <div class="header">
             <h1>Станислав Кот</h1>
             <div class="subtitle">Менеджер-аналитик маркетплейсов | Python / ML разработчик</div>
             <div class="nick">// github.com/St4s0n7</div>
+        </div>
+
+        <div class="user-info">
+            <span><span class="key">user:</span> <span class="val">st4s0n7</span></span>
+            <span><span class="key">status:</span> <span class="val">active</span></span>
+            <span><span class="key">hackathons:</span> <span class="val">4</span></span>
+            <span><span class="key">uptime:</span> <span class="val">2+ years</span></span>
         </div>
 
         <div class="section">
@@ -242,6 +355,10 @@
             </div>
         </div>
 
+        <div class="terminal-line">
+            <span class="prompt">st4s0n7@resume:~$</span> ./hackathons.sh --list
+        </div>
+
         <div class="section">
             <h2>Хакатоны и проекты</h2>
 
@@ -268,6 +385,10 @@
                 <div class="title">CV-хакатон</div>
                 <div class="desc">Компьютерное зрение для автономных систем</div>
             </div>
+        </div>
+
+        <div class="terminal-line">
+            <span class="prompt">st4s0n7@resume:~$</span> cat certifications.log
         </div>
 
         <div class="section">
@@ -310,14 +431,24 @@
             </div>
         </div>
 
+        <div class="terminal-line">
+            <span class="prompt">st4s0n7@resume:~$</span> ./current_mission.sh
+        </div>
+
         <div class="section">
             <h2>Текущая цель</h2>
             <p><strong>Ozon Tech — Робозон</strong></p>
             <p>Имитационное моделирование сортировочного центра — выявление узких мест и оптимизация процессов.</p>
         </div>
 
+        <div class="quote">
+            "A system is only as strong as its weakest node. Find it. Fix it. Evolve."
+            <div class="author">— st4s0n7</div>
+        </div>
+
         <div class="footer">
             <p>© 2026 Станислав Кот · <a href="https://github.com/St4s0n7">github.com/St4s0n7</a></p>
+            <p style="margin-top:4px; color:#004d12;">EOF</p>
         </div>
     </div>
 </body>
