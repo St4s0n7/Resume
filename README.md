@@ -13,7 +13,6 @@ Python · OpenCV · U-net · LangChain · RAG · FAISS · FastAPI · Docker · C
 - 🏅 **Участник** — CV-хакатон (комп. зрение для автономных систем)
 
 ## 📜 Сертификаты
-- HackerU — Пентестер (тестирование на проникновение)
 - УИИ — AI Winter School Vibe Coding
 - УИИ — Разработка нейро-сотрудников на GPT
 
